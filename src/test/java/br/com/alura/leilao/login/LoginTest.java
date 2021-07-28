@@ -9,13 +9,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class LoginTest {
 	
 	@Test
-	public void deveriaEfetuarLoginComDadosValidos() {
+	public void deveriaEfetuarLoginComDadosValidos() throws InterruptedException {
 		System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
 		WebDriver browser = new FirefoxDriver();
 		browser.navigate().to("http://localhost:8080/login");
 		browser.findElement(By.id("username")).sendKeys("fulano");
 		browser.findElement(By.id("password")).sendKeys("pass");
 		browser.findElement(By.id("login-form")).submit();
+		
+		Thread.sleep(3000);
 		
 		Assert.assertFalse(browser.getCurrentUrl().equals("http://localhost:8080/login"));
 		Assert.assertEquals("fulano", browser.findElement(By.id("usuario-logado")).getText());
